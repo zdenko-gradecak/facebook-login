@@ -24,7 +24,7 @@ declare interface Facebook {
     version: string;
   }): void;
 
-  login(handle: (response: any) => void, options?: { scope: string }): void;
+  login(handle: (response: any) => void, options?: { scope: string, auth_type?: string }): void;
 
   logout(handle: (response: any) => void): void;
 
@@ -51,6 +51,7 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
 
   async login(options: {
     permissions: string[];
+    authType?: string;
   }): Promise<FacebookLoginResponse> {
     console.log('FacebookLoginWeb.login', options);
 
@@ -73,7 +74,10 @@ export class FacebookLoginWeb extends WebPlugin implements FacebookLoginPlugin {
             });
           }
         },
-        { scope: options.permissions.join(',') },
+        {
+          scope: options.permissions.join(','),
+          auth_type: options.authType ?? undefined,
+        },
       );
     });
   }
