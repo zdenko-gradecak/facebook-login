@@ -26,7 +26,7 @@ export interface FacebookCurrentAccessTokenResponse {
 }
 
 export interface FacebookLoginPlugin {
-  login(options: { permissions: string[] }): Promise<FacebookLoginResponse>;
+  login(options: { permissions: string[], authType?: string }): Promise<FacebookLoginResponse>;
   logout(): Promise<void>;
   getCurrentAccessToken(): Promise<FacebookCurrentAccessTokenResponse>;
 }
